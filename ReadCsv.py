@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 
 def test_run():
-    df = pd.read_csv("data/خبهمن.csv")
+    df = pd.read_csv("data/khebahman.csv")
     print(df.head())
     print(df.tail())
     print("------")
@@ -22,7 +22,7 @@ def get_mean_volume(symbol):
 
 
 def test_run2():
-    for symbol in ['خبهمن', 'خمهر']:
+    for symbol in ['khebahman', 'khemehr']:
         print("Max Close")
         print(symbol, get_max_close(symbol))
         print("Mean Volume")
@@ -39,4 +39,4 @@ def plot_stock_data(symbol):
 if __name__ == "__main__":
     test_run()
     test_run2()
-    plot_stock_data("خبهمن")
+    plot_stock_data("khebahman")
