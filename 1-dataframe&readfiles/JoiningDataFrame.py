@@ -38,6 +38,8 @@ def test_run():
     plt.show()
 
 
+# another way of implementation this
+
 def symbol_to_path(symbol, base_dir="data"):
     """return CSV file path given ticker symbol"""
     return os.path.join(base_dir, "{}.csv".format(str(symbol)))
@@ -65,8 +67,47 @@ def join_symbols():
     symbols = ['khezar', 'khemehr', 'khebahman']
     df = get_data(symbols, dates)
     print(df)
-    df[['khemehr', 'khezar']].plot()
+    # df[['khemehr', 'khezar']].plot()
+    # plt.show()
+    # work on subset of data
+    df = normalize_data(df)
+    print("After normalizing: ")
+    print(df)
+    df1 = df['2018-05-02':'2019-05-02']
+    print("Print a rows subset of this data:")
+    print(df1)
+
+    # filter columns
+    print(df[['khebahman', 'khemehr']])
+    print("Another type of subset with subset of columns and rows")
+
+    df2 = df.loc['2018-05-02':'2019-05-02', 'khemehr':'khebahman']
+    print(df2)
+
+    # plot_data(df)
+    plot_selected(df, ['khezar', 'khebahman'], '2018-05-02', '2021-02-14')
+
+
+def plot_data(df, title="Stock prices"):
+    '''plot stock prices'''
+    ax = df.plot(title=title, fontsize=2)
+    ax.set_xlabel("Date")
+    ax.set_ylabel("Price")
+
     plt.show()
+
+
+def plot_selected(df, columns, start_index, end_index):
+    plot_data(df.loc[start_index:  end_index, columns[0]:columns[1]], title="Selected data")
+
+
+def normalize_data(df):
+    """Normalize stock prices using first row of the 1-dataframe&readfiles."""
+    print("Normalizing with:\n")
+    print(df.iloc[0,:])
+    print("finally \n\n")
+    ##looks like at day 1 the stock price was 1$
+    return df / df.iloc[0,:]
 
 
 if __name__ == "__main__":
